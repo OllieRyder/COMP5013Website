@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="style.css">
+  <head>
+    <title>Homepage</title>
+    <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        
+        
+
+      $(function load(){
+          $(function(){
+              $.ajax({
+                  url: '/home',
+                  type: 'GET',
+                  success: function(response){
+                      console.log(response);
+                      
+                      var jsObject = JSON.parse(response) 
+                      
+                      console.log(jsObject);
+
+                      for (x in jsObject){
+                          var newP = $('#newPost').clone();                            
+                          newP.children("h1").children("a").append(document.createTextNode(jsObject[x].Header));
+                          newP.children("p").append(document.createTextNode(jsObject[x].Contents)); 
+                          var testTwo = newP.children("h1").children("a").attr("href");
+                          var test = newP.children("h1").children("a").attr("href", testTwo + jsObject[x].TopicID);
+                          var sauce = jsObject[x].TopicID;
+                          newP.data('id',sauce); 
+
+                          newP.appendTo(".body");
+                          
+                      }
+                  },
+              });
+          });
+          
+      });
+
+      
+
+
+      </script>
+  </head>
+  <body>
+    <div id="container">
+        <div id="title">
+          <h1>Homepage</h1>
+        </div>
+        <div id="headers">
+        </div>
+        <div id="headers">
+          <div>
+            <div class="header-box">
+              <a href="Homepage.html" class="header-link">Homepage</a>
+            </div>
+            <div class="header-box">
+              <a href="Topics.html" class="header-link">Topic</a>
+            </div>
+            <div class="header-box">
+              <a href="Claims.html" class="header-link">Claim</a>
+            </div>
+            <div id="login-button">
+              <a href="Register.html">Login/Register</a>
+            </div>
+    </div>
+  </body>
+</html>

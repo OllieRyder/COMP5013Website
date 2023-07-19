@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="style.css">
+  <head>
+    <title>Claims</title>
+    <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>
+            $(function load(){
+                $(function(){	
+                    $.ajax({
+                        url: '../fetchReplys',
+                        type: 'GET',
+                        success: function(response){
+                            console.log(response);
+
+                            var jsObject = JSON.parse(response) 
+                            console.log(jsObject);
+
+                            for (x in jsObject){
+                            var newR = $('#newPost').clone();                            
+                            newR.children("h1").append(document.createTextNode(jsObject[x].argumentType));
+                            newR.children("p").append(document.createTextNode(jsObject[x].contents));   
+                            newR.children("#user").append(document.createTextNode(jsObject[x].posterID));   
+                          
+                            newR.appendTo(".body");
+                            
+                        }
+                            
+                            	
+                        },
+                    });
+                });
+            });
+
+        </script>
+  </head>
+  <body>
+    <div id="container">
+        <div id="title">
+          <h1>Claims</h1>
+        </div>
+        <div id="headers">
+          <div class="header-box">
+            <a href="Homepage.html" class="header-link">Homepage</a>
+          </div>
+          <div class="header-box">
+            <a href="Topics.html" class="header-link">Topic</a>
+          </div>
+          <div class="header-box">
+            <a href="Claims.html" class="header-link">Claim</a>
+          </div>
+        </div>
+      <div id="input">
+        <form>
+          <input type="text" placeholder="Enter your reply ">
+          <input type="submit" value="Create">
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="style.css">
+  <head>
+    <title>Topics</title>
+    <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>
+            $(function load(){
+                $(function(){	
+                    $.ajax({
+                        url: '../fetchClaims',
+                        type: 'GET',
+                        success: function(response){
+                            console.log(response);
+
+                            var jsObject = JSON.parse(response) 
+                            console.log(jsObject);
+
+                            for (x in jsObject){
+                            var newC = $('#newPost').clone();                            
+                            newC.children("h1").children("a").append(document.createTextNode(jsObject[x].header));
+                            newC.children("p").append(document.createTextNode(jsObject[x].content)); 
+                            var testTwo = newC.children("h1").children("a").attr("href");
+                            var test = newC.children("h1").children("a").attr("href", testTwo + jsObject[x].ClaimID);
+                            newC.children("#user").append(document.createTextNode(jsObject[x].posterID));   
+                            var sauce = jsObject[x].ClaimID;
+                            newC.data('id',sauce); 
+
+                            newC.appendTo(".body");
+                            
+                        }
+                            
+                            	
+                        },
+                    });
+                });
+            });
+
+        </script>
+  </head>
+  <body>
+    <div id="container">
+        <div id="title">
+          <h1>Topics</h1>
+        </div>
+        <div id="headers">
+          <div class="header-box">
+            <a href="Homepage.html" class="header-link">Homepage</a>
+          </div>
+          <div class="header-box">
+            <a href="Topics.html" class="header-link">Topic</a>
+          </div>
+          <div class="header-box">
+            <a href="Claims.html" class="header-link">Claim</a>
+          </div>
+        </div>
+      <div id="input">
+        <form method="post" action="/createTopic">
+          <input type="text" placeholder="Enter your Topic title">
+          <input type="text" placeholder="Enter the description on what your topic is about">
+          <input type="submit" value="Create">
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
